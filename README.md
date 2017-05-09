@@ -41,13 +41,12 @@ rm -rf temp
 docker run -d \
 -p ${PROJECT_PORT}:8080 \
 --link mysql:local_mysql \
--v /opt/docker/base_env:/opt/base_env \
 -v /etc/localtime:/etc/localtime:ro \
 -v /opt/docker/storage/tomcat/${PROJECT_NAME}/trunk:/opt/server/apache-tomcat-7.0.77/webapps \
 -e TZ="Asia/Shanghai" \
 --name ${PROJECT_NAME} \
 --restart always \
-116.62.71.194:5000/tomcat:v1
+wanxin/docker-tomcat
 
 ###########################################################################################
 
@@ -77,13 +76,12 @@ rm -rf temp
 docker run -d \
 -p ${PROJECT_PORT}:8080 \
 --link mysql:local_mysql \
--v /opt/docker/base_env:/opt/base_env \
 -v /etc/localtime:/etc/localtime:ro \
 -v /opt/docker/storage/tomcat/${PROJECT_NAME}/trunk:/opt/server/apache-tomcat-7.0.77/webapps \
 -e TZ="Asia/Shanghai" \
 --name ${PROJECT_NAME} \
 --restart always \
-116.62.71.194:5000/tomcat:v1
+wanxin/docker-tomcat
 
 ###########################################################################################
 
