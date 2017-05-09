@@ -4,15 +4,6 @@ FROM ubuntu:14.04
 # Maintainer: docker_user <docker_user at email.com> (@docker_user)
 MAINTAINER wanxin <wanxin@yufex.com>
 
-# build runtime environment
-ENV BASE_ENV /opt/base_env
-ENV JAVA_HOME ${BASE_ENV}/jdk1.7.0_79
-ENV JRE_HOME ${BASE_ENV}/jdk1.7.0_79/jre
-RUN echo "#set java environment" >> /etc/profile && \
-	echo "export JAVA_HOME=${JAVA_HOME}" >> /etc/profile && \
-	echo "export JRE_HOME=${JAVA_HOME}/jre" >> /etc/profile && \
-	echo "export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib" >> /etc/profile && \
-	echo "export PATH=${JAVA_HOME}/bin:$PATH" >> /etc/profile
 
 # ¿½±´jdkºÍtomcatÑ¹Ëõ°ü
 COPY env /opt/package
