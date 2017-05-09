@@ -21,7 +21,7 @@ RUN echo "#set java environment" >> /etc/profile && \
 	echo "export PATH=${JAVA_HOME}/bin:$PATH" >> /etc/profile
 
 #由于jdk7的一个安全问题,导致tomcat7启动卡在deploy阶段,通过下边修改来解决
-sed -i 's/file:\/dev\/urandom/file:\/dev\/.\/urandom/g' /opt/jdk1.7.0_79/jre/lib/security/java.security
+sed -i 's/file:\/dev\/urandom/file:\/dev\/.\/urandom/g' ${JRE_HOME}/lib/security/java.security
 
 #处理tomcat环境
 RUN apt-get update && apt-get install -y zip
