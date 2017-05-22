@@ -26,9 +26,6 @@ Exec command：
 PROJECT_NAME=yufex-wtms
 PROJECT_PORT=8090
 
-# try to get newer image from docker hub(ignore this can save time..)
-# docker pull wanxin/docker-tomcat
-
 #remove exits container
 if docker ps -a | grep -i ${PROJECT_NAME}; then
 	docker rm -f ${PROJECT_NAME}
@@ -64,9 +61,6 @@ Exec command：
 PROJECT_NAME=yufex-wtweb
 PROJECT_PORT=8080
 
-# try to get newer image from docker hub(ignore this can save time..)
-# docker pull wanxin/docker-tomcat
-
 #remove exits container
 if docker ps -a | grep -i ${PROJECT_NAME}; then
 	docker rm -f ${PROJECT_NAME}
@@ -84,6 +78,7 @@ rm -rf temp
 docker run -d \
 -p ${PROJECT_PORT}:8080 \
 --link mysql:local_mysql \
+--link yufex-wtms:yufex-wtms \
 -v /etc/localtime:/etc/localtime:ro \
 -v /opt/docker/storage/tomcat/${PROJECT_NAME}/trunk:/opt/server/apache-tomcat-7.0.77/webapps \
 -e TZ="Asia/Shanghai" \
