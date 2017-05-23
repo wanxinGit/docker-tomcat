@@ -1,5 +1,5 @@
 # Base image to use, this must be set as the first line
-FROM wanxin/docker-ubuntu
+FROM ubuntu:14.04
 
 # Maintainer: docker_user <docker_user at email.com> (@docker_user)
 MAINTAINER wanxin <wanxin@yufex.com>
