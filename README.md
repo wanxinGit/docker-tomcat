@@ -30,6 +30,7 @@ Exec command：
 
 PROJECT_NAME=yufex-wtms
 PROJECT_PORT=8090
+SSH_PORT=2022
 
 #remove exits container
 if docker ps -a | grep -i ${PROJECT_NAME}; then
@@ -47,6 +48,7 @@ rm -rf temp
 #run new container
 docker run -d \
 -p ${PROJECT_PORT}:8080 \
+-p ${SSH_PORT}:22 \
 --link mysql:local_mysql \
 -v /etc/localtime:/etc/localtime:ro \
 -v /opt/docker/storage/tomcat/${PROJECT_NAME}/trunk:/opt/server/apache-tomcat-7.0.77/webapps \
@@ -65,6 +67,7 @@ Exec command：
 
 PROJECT_NAME=yufex-wtweb
 PROJECT_PORT=8080
+SSH_PORT=2122
 
 #remove exits container
 if docker ps -a | grep -i ${PROJECT_NAME}; then
@@ -82,6 +85,7 @@ rm -rf temp
 #run new container
 docker run -d \
 -p ${PROJECT_PORT}:8080 \
+-p ${SSH_PORT}:22 \
 --link mysql:local_mysql \
 --link yufex-wtms:yufex-wtms \
 -v /etc/localtime:/etc/localtime:ro \
