@@ -4,30 +4,30 @@ FROM ubuntu:14.04
 # Maintainer: docker_user <docker_user at email.com> (@docker_user)
 MAINTAINER wanxin <wanxin@yufex.com>
 
-# Çå¿Õubuntu¸üĞÂ°ü
+# æ¸…ç©ºubuntuæ›´æ–°åŒ…
 RUN rm -rf /var/lib/apt/lists/*
 
-# °²×°ĞèÒªµÄÈí¼ş°ü
+# å®‰è£…éœ€è¦çš„è½¯ä»¶åŒ…
 RUN apt-get update && apt-get install -y zip vim wget curl openssh-server supervisor
 
-# ÅäÖÃÔÊĞírootÓÃ»§sshµÇÂ¼
+# é…ç½®å…è®¸rootç”¨æˆ·sshç™»å½•
 RUN mkdir -p /var/run/sshd
 RUN echo "root:123456" | chpasswd
 RUN sed -ri "s/^PermitRootLogin\s+.*/PermitRootLogin yes/" /etc/ssh/sshd_config
 RUN sed -ri "s/UsePAM yes/#UsePAM yes/g" /etc/ssh/sshd_config
 
-# ÅäÖÃsupervisor
+# é…ç½®supervisor
 RUN mkdir -p /var/log/supervisor
 COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 
-# ¿½±´jdkºÍtomcatÑ¹Ëõ°ü
+# æ‹·è´jdkå’Œtomcatå‹ç¼©åŒ…
 COPY env /opt/package
-# ºÏ²¢·Ö¾íÑ¹Ëõ°ü²¢½âÑ¹
+# åˆå¹¶åˆ†å·å‹ç¼©åŒ…å¹¶è§£å‹
 RUN cat /opt/package/jdk1.7.0_79.tar.gz.a* > /opt/package/jdk1.7.0_79.tar.gz && \
 mkdir -p /opt/jdk && \
 tar -xf /opt/package/jdk1.7.0_79.tar.gz -C /opt/jdk
-#ÉèÖÃjdk»·¾³±äÁ¿
+#è®¾ç½®jdkç¯å¢ƒå˜é‡
 ENV JAVA_HOME /opt/jdk/jdk1.7.0_79
 ENV JRE_HOME ${JAVA_HOME}/jre
 RUN echo "#set java environment" >> /etc/profile && \
@@ -36,16 +36,16 @@ RUN echo "#set java environment" >> /etc/profile && \
 	echo "export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib" >> /etc/profile && \
 	echo "export PATH=${JAVA_HOME}/bin:$PATH" >> /etc/profile
 
-#ÓÉÓÚjdk7µÄÒ»¸ö°²È«ÎÊÌâ,µ¼ÖÂtomcat7Æô¶¯¿¨ÔÚdeploy½×¶Î,Í¨¹ıÏÂ±ßĞŞ¸ÄÀ´½â¾ö
+#ç”±äºjdk7çš„ä¸€ä¸ªå®‰å…¨é—®é¢˜,å¯¼è‡´tomcat7å¯åŠ¨å¡åœ¨deployé˜¶æ®µ,é€šè¿‡ä¸‹è¾¹ä¿®æ”¹æ¥è§£å†³
 RUN sed -i 's/file:\/dev\/urandom/file:\/dev\/.\/urandom/g' ${JRE_HOME}/lib/security/java.security
 
-#´¦Àítomcat»·¾³
+#å¤„ç†tomcatç¯å¢ƒ
 RUN unzip -q /opt/package/apache-tomcat-7.0.77.zip -d /opt/server
 ENV TOMCAT_HOME /opt/server/apache-tomcat-7.0.77
 WORKDIR ${TOMCAT_HOME}
 RUN chmod 777 bin/*.sh
 
-# put web package(½«Õâ¸ö²½ÖèÒÆµ½-v¹ÒÔØ¾íÀ´´¦Àí)
+# put web package(å°†è¿™ä¸ªæ­¥éª¤ç§»åˆ°-væŒ‚è½½å·æ¥å¤„ç†)
 RUN rm -rf webapps/*
 COPY war webapps
 
@@ -60,5 +60,5 @@ ENV JAVA_OPTS="\
 
 EXPOSE 22 8080
 
-# ÓÃsupervisorÆô¶¯Ïà¹Ø·şÎñ
+# ç”¨supervisorå¯åŠ¨ç›¸å…³æœåŠ¡
 CMD ["/usr/bin/supervisord"]
