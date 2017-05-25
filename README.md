@@ -52,6 +52,8 @@ docker run -d \
 --link mysql:local_mysql \
 -v /etc/localtime:/etc/localtime:ro \
 -v /opt/docker/storage/tomcat/${PROJECT_NAME}/trunk:/opt/server/apache-tomcat-7.0.77/webapps \
+-v /opt/docker/storage/tomcat/${PROJECT_NAME}/logs/tomcat:/opt/server/apache-tomcat-7.0.77/logs \
+-v /opt/docker/storage/tomcat/${PROJECT_NAME}/logs/app:/opt/server/logs \
 -e TZ="Asia/Shanghai" \
 --name ${PROJECT_NAME} \
 --restart always \
@@ -90,6 +92,8 @@ docker run -d \
 --link yufex-wtms:yufex-wtms \
 -v /etc/localtime:/etc/localtime:ro \
 -v /opt/docker/storage/tomcat/${PROJECT_NAME}/trunk:/opt/server/apache-tomcat-7.0.77/webapps \
+-v /opt/docker/storage/tomcat/${PROJECT_NAME}/logs/tomcat:/opt/server/apache-tomcat-7.0.77/logs \
+-v /opt/docker/storage/tomcat/${PROJECT_NAME}/logs/app:/opt/server/logs \
 -e TZ="Asia/Shanghai" \
 --name ${PROJECT_NAME} \
 --restart always \
