@@ -126,3 +126,10 @@ JAVA_OPTS='-server -Xms1024m -Xmx1024m -XX:PermSize=256M -XX:MaxNewSize=512m -XX
 由于镜像构建极其费时（apt-get安装工具），所以采用先构建好镜像，然后每次只是删除旧容器，启动新容器的方式。
 
 6、日志处理（待解决）
+
+7、容器中杀掉tomcat进程会被supervisor自动重新拉起来
+需要在supervisor中停止或者启动进程
+supervisorctl stop tomcat
+supervisorctl start tomcat
+
+--直接startup.sh启动tomcat还有一个问题就是JAVA_OPTS不会设置，所以建议启停都通过supervisor来！
