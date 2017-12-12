@@ -30,11 +30,12 @@ tar -xf /opt/package/jdk1.7.0_79.tar.gz -C /opt/jdk
 #设置jdk环境变量
 ENV JAVA_HOME /opt/jdk/jdk1.7.0_79
 ENV JRE_HOME ${JAVA_HOME}/jre
-RUN echo "#set java environment" >> /etc/profile && \
-	echo "export JAVA_HOME=${JAVA_HOME}" >> /etc/profile && \
-	echo "export JRE_HOME=${JAVA_HOME}/jre" >> /etc/profile && \
-	echo "export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib" >> /etc/profile && \
-	echo "export PATH=${JAVA_HOME}/bin:$PATH" >> /etc/profile
+# 不在环境变量中写入了
+# RUN echo "#set java environment" >> /etc/profile && \
+#	echo "export JAVA_HOME=${JAVA_HOME}" >> /etc/profile && \
+#	echo "export JRE_HOME=${JAVA_HOME}/jre" >> /etc/profile && \
+#	echo "export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib" >> /etc/profile && \
+#	echo "export PATH=${JAVA_HOME}/bin:$PATH" >> /etc/profile
 
 #由于jdk7的一个安全问题,导致tomcat7启动卡在deploy阶段,通过下边修改来解决
 RUN sed -i 's/file:\/dev\/urandom/file:\/dev\/.\/urandom/g' ${JRE_HOME}/lib/security/java.security

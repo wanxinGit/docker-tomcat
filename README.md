@@ -8,6 +8,23 @@
 4、通过ENV指定jvm启动参数
 5、webapp下删除多余的包，只放置一个hello world的项目
 
+
+基础启动脚本(测试用)
+docker run -d \
+-p 8888:8080 \
+-p 2222:22 \
+-v /etc/localtime:/etc/localtime:ro \
+-e TZ="Asia/Shanghai" \
+wanxin/docker-tomcat
+
+####################################20171212更新内容###############################################
+1、减掉java环境变量的配置，java环境变量在Dockerfile中设置了
+所以特别需要注意，在容器中重新启动tomcat不能直接启动（这样会没有JAVA_HOME、JRE_HOME、JAVA_OPTS等环境变量）
+需要用以下方式来启停
+supervisorctl stop tomcat
+supervisorctl start tomcat
+
+2、优化web测试页的提示
 ####################################20170523更新内容###############################################
 1、增加ssh远程管理支持
 2、使用supervisor管理服务
