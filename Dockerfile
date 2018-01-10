@@ -41,13 +41,13 @@ ENV JRE_HOME ${JAVA_HOME}/jre
 RUN sed -i 's/file:\/dev\/urandom/file:\/dev\/.\/urandom/g' ${JRE_HOME}/lib/security/java.security
 
 #处理tomcat环境
-RUN unzip -q /opt/package/apache-tomcat-7.0.77.zip -d /opt/server
+RUN unzip -q /opt/package/apache-tomcat-7.0.77.zip -d /opt/server && \
+	rm -rf ${TOMCAT_HOME}/webapps/*
 ENV TOMCAT_HOME /opt/server/apache-tomcat-7.0.77
 WORKDIR ${TOMCAT_HOME}
-RUN chmod 777 bin/*.sh
+RUN chmod 755 bin/*.sh
 
 # put web package(将这个步骤移到-v挂载卷来处理)
-RUN rm -rf webapps/*
 COPY war webapps
 
 # set jvm options
