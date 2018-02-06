@@ -4,6 +4,10 @@ FROM ubuntu:14.04
 # Maintainer: docker_user <docker_user at email.com> (@docker_user)
 MAINTAINER wanxin <wanxin@yufex.com>
 
+# 解决日志中乱码的问题
+ENV LC_ALL C.UTF-8
+ENV LANG C.UTF-8
+
 # 清空ubuntu更新包
 RUN rm -rf /var/lib/apt/lists/*
 
